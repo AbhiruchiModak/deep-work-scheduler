@@ -815,6 +815,12 @@ input[type="time"].field-input { -webkit-appearance: auto; appearance: auto; }
 .dark .notif-option.selected { background: #1a2e38; }
 
 /* ── RESPONSIVE ───────────────────────────────────────── */
+@media (min-width: 1024px) {
+  body {
+    font-size: 18px; 
+  }
+}
+
 @media (max-width: 600px) {
   .nav-title { font-size: 1.15rem; }
   .hamburger { display: flex; }
