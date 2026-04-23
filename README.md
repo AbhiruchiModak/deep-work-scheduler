@@ -1,4 +1,4 @@
-```markdown
+
 # Deep Work Scheduler
 
 Maximize productivity by creating **time blocks for deep work**.  
@@ -6,7 +6,7 @@ This lightweight web app helps you plan focused sessions, receive reminders, and
 
 ---
 
-## 🚀 Features
+## Features
 - **Frictionless onboarding** → no accounts, tasks stored in browser local storage.
 - **Time block creation** → schedule deep work sessions for the day.
 - **Reminders & notifications** → push notifications via PWA service worker.
@@ -15,14 +15,14 @@ This lightweight web app helps you plan focused sessions, receive reminders, and
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 - **Frontend:** HTML, CSS, JavaScript
 - **PWA:** Manifest.json + Service Worker
 - **Hosting:** GitHub Pages
 
 ---
 
-## 📦 Installation
+## Installation
 1. Clone the repository:
    ```bash
    git clone https://github.com/<your-username>/deep-work-scheduler.git
@@ -35,7 +35,7 @@ This lightweight web app helps you plan focused sessions, receive reminders, and
 
 ---
 
-## 🌐 Deployment (GitHub Pages)
+## Deployment (GitHub Pages)
 1. Push your project to the `main` branch.  
 2. Go to **Settings → Pages**.  
 3. Under **Source**, select `main` branch and `/root`.  
