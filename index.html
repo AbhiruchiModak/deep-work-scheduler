@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Deep Work Scheduler</title>
+
+  <!-- PWA manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Theme & status bar -->
+  <meta name="theme-color" content="#1a3a4a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="DeepWork">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Deep Work Scheduler">
+
+  <!-- SEO / Open Graph -->
+  <meta name="description" content="Time blocking meets deep work principles. Schedule distraction-free sessions, get reminders, and track your productivity.">
+  <meta name="keywords" content="deep work, time blocking, productivity, focus, scheduler">
+  <meta property="og:title" content="Deep Work Scheduler">
+  <meta property="og:description" content="Schedule distraction-free work sessions and maximise your focus.">
+  <meta property="og:type" content="website">
+
+  <!-- Apple touch icons -->
+  <link rel="apple-touch-icon" href="icons/icon-152.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="icons/icon-152.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="icons/icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  <link rel="icon" type="image/png" sizes="96x96"  href="icons/icon-96.png">
+  <link rel="shortcut icon" href="icons/icon-96.png">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <nav id="main-nav">
+    <div class="nav-left">
+      <svg class="nav-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span class="nav-title">Deep Work Scheduler</span>
+    </div>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    <div id="navlinks">
+      <a href="about.html" class="nav-link">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        About Deep Work
+      </a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <h1 class="hero-title">Master Your Focus, Maximize Your Impact</h1>
+    <p class="hero-sub">Time blocking meets deep work principles. Schedule distraction-free sessions, get timely reminders, and track your productivity journey.</p>
+    <div class="hero-pills">
+      <span class="pill">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Visual daily planning
+      </span>
+      <span class="pill">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        Smart reminders
+      </span>
+      <span class="pill">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Daily insights
+      </span>
+    </div>
+  </header>
+
+  <main id="app">
+
+    <div class="main-card" id="create-card">
+      <div class="card-head">
+        <p class="card-label" id="formModeLabel">Create Time Block</p>
+        <p class="card-sub" id="formModeSub">Schedule your deep work sessions for today</p>
+      </div>
+
+      <!-- Editing banner — shown only in edit mode -->
+      <div id="editingBanner" class="editing-banner" style="display:none">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Editing: <strong id="editingBannerTitle"></strong>
+      </div>
+
+      <div id="formError" class="form-error" style="display:none"></div>
+
+      <form id="blockForm" novalidate>
+        <div class="form-group">
+          <label class="field-label" for="taskTitle">Task Title <span class="req">*</span></label>
+          <input type="text" id="taskTitle" class="field-input" placeholder="e.g., Write project proposal" autocomplete="off">
+          <div class="field-error" id="titleError"></div>
+        </div>
+        <div class="form-group">
+          <label class="field-label" for="taskDesc">Description (optional)</label>
+          <textarea id="taskDesc" class="field-input field-textarea" placeholder="Add any notes or objectives..." rows="3"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="field-label" for="startTime">Start Time <span class="req">*</span></label>
+            <input type="time" id="startTime" class="field-input">
+            <div class="field-error" id="startError"></div>
+          </div>
+          <div class="form-group">
+            <label class="field-label" for="endTime">End Time <span class="req">*</span></label>
+            <input type="time" id="endTime" class="field-input">
+            <div class="field-error" id="endError"></div>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="button" id="cancelEditBtn" class="btn-cancel-edit" style="display:none">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Cancel
+          </button>
+          <button type="submit" class="btn-add">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span id="submitBtnText">Add Time Block</span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="main-card" id="schedule-card">
+      <div class="schedule-head">
+        <div>
+          <p class="card-label">Today's Schedule</p>
+          <p class="card-sub" id="progressLabel">0 of 0 blocks completed</p>
+        </div>
+        <button class="notif-settings-btn" id="notifSettingsBtn" title="Notification settings">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span id="notifSettingsLabel">Reminders</span>
+        </button>
+      </div>
+      <div id="blockList">
+        <div class="empty-state" id="emptyState">
+          <p>No time blocks scheduled yet.</p>
+        </div>
+      </div>
+      <button class="btn-end-day" id="endDayBtn">End Day &amp; View Summary</button>
+    </div>
+
+  </main>
+
+  <!-- Notification Settings Modal -->
+  <div id="notifModal" class="modal-overlay" style="display:none">
+    <div class="modal notif-modal">
+      <h2 class="modal-title">Reminder Settings</h2>
+      <p class="modal-msg">Choose how you'd like to receive reminders for your deep work blocks.</p>
+      <div class="notif-options">
+        <label class="notif-option" id="optionAll">
+          <input type="radio" name="notifMode" value="all" id="radioAll">
+          <div class="notif-option-body">
+            <div class="notif-option-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              Notify all blocks
+            </div>
+            <p class="notif-option-desc">Get a reminder 5 minutes before every time block starts automatically.</p>
+          </div>
+        </label>
+        <label class="notif-option" id="optionSelective">
+          <input type="radio" name="notifMode" value="selective" id="radioSelective">
+          <div class="notif-option-body">
+            <div class="notif-option-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              Selective reminders
+            </div>
+            <p class="notif-option-desc">Choose which blocks get reminders using the bell button on each block.</p>
+          </div>
+        </label>
+        <label class="notif-option" id="optionOff">
+          <input type="radio" name="notifMode" value="off" id="radioOff">
+          <div class="notif-option-body">
+            <div class="notif-option-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="1" y1="1" x2="23" y2="23"/><path d="M17.73 17.73A10.16 10.16 0 0 1 12 19c-3.5 0-6-1-8-3 0 0 0-5 3-7M6.53 6.53A5.86 5.86 0 0 1 12 6a6 6 0 0 1 6 6c0 1.5-.5 3-1.27 4.27"/></svg>
+              No reminders
+            </div>
+            <p class="notif-option-desc">Reminders are disabled. You can change this any time.</p>
+          </div>
+        </label>
+      </div>
+      <div class="notif-modal-actions">
+        <button class="btn-ghost" id="cancelNotifModal">Cancel</button>
+        <button class="btn-add" id="saveNotifModal">Save Preference</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary Modal -->
+  <div id="summaryModal" class="modal-overlay" style="display:none">
+    <div class="modal">
+      <div class="modal-emoji" id="modalEmoji">🎉</div>
+      <h2 class="modal-title" id="modalTitle">Great work today!</h2>
+      <p class="modal-msg" id="modalMessage"></p>
+      <div id="modalStats" class="modal-stats"></div>
+      <p class="modal-note">Ready to crush tomorrow? Come back and plan your next deep work day!</p>
+      <button class="btn-add" id="closeModal">Close Summary</button>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="reminderToast" class="toast" style="display:none">
+    <span class="toast-icon">🔔</span>
+    <div class="toast-body">
+      <strong id="toastTitle"></strong>
+      <span id="toastMsg"></span>
+    </div>
+    <button id="closeToast" class="toast-close">x</button>
+  </div>
+
+  <script src="script.js"></script>
+
+  <!-- PWA: Service Worker registration + install prompt -->
+  <script>
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js')
+          .then(function(reg) {
+            console.log('[SW] Registered, scope:', reg.scope);
+
+            // Check for SW updates
+            reg.addEventListener('updatefound', function() {
+              var newWorker = reg.installing;
+              newWorker.addEventListener('statechange', function() {
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                  showUpdateBanner();
+                }
+              });
+            });
+          })
+          .catch(function(err) { console.warn('[SW] Registration failed:', err); });
+
+        // Listen for controller change (new SW took over)
+        navigator.serviceWorker.addEventListener('controllerchange', function() {
+          window.location.reload();
+        });
+      });
+    }
+
+    // ── Update banner ──────────────────────────────────────────────────────
+    function showUpdateBanner() {
+      var banner = document.createElement('div');
+      banner.id = 'updateBanner';
+      banner.innerHTML =
+        '<span>A new version is available.</span>'
+        + '<button id="updateBtn">Update</button>'
+        + '<button id="dismissUpdate">Later</button>';
+      document.body.appendChild(banner);
+
+      document.getElementById('updateBtn').addEventListener('click', function() {
+        if (navigator.serviceWorker.controller) {
+          navigator.serviceWorker.controller.postMessage({ type: 'SKIP_WAITING' });
+        }
+        banner.remove();
+      });
+      document.getElementById('dismissUpdate').addEventListener('click', function() {
+        banner.remove();
+      });
+    }
+
+    // ── Install (Add to Home Screen) prompt ───────────────────────────────
+    var deferredPrompt = null;
+
+    window.addEventListener('beforeinstallprompt', function(e) {
+      e.preventDefault();
+      deferredPrompt = e;
+      showInstallBanner();
+    });
+
+    function showInstallBanner() {
+      if (document.getElementById('installBanner')) return;
+      var banner = document.createElement('div');
+      banner.id = 'installBanner';
+      banner.innerHTML =
+        '<div class="install-text">'
+        + '<strong>Install Deep Work Scheduler</strong>'
+        + '<span>Add to your home screen for the best experience.</span>'
+        + '</div>'
+        + '<div class="install-actions">'
+        + '<button id="installBtn">Install</button>'
+        + '<button id="dismissInstall">Not now</button>'
+        + '</div>';
+      document.body.appendChild(banner);
+
+      document.getElementById('installBtn').addEventListener('click', function() {
+        banner.remove();
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then(function() { deferredPrompt = null; });
+        }
+      });
+      document.getElementById('dismissInstall').addEventListener('click', function() {
+        banner.remove();
+        localStorage.setItem('installDismissed', '1');
+      });
+    }
+
+    // Don't show again if dismissed
+    if (localStorage.getItem('installDismissed')) {
+      window.removeEventListener('beforeinstallprompt', showInstallBanner);
+    }
+
+    // Detect standalone mode (already installed)
+    if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
+      document.body.classList.add('pwa-standalone');
+    }
+  </script>
+</body>
+</html>

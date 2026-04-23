@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>About Deep Work</title>
+
+  <!-- PWA manifest -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1a3a4a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="DeepWork">
+  <meta name="description" content="How deep work and time blocking principles combine to transform your productivity.">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon" href="icons/icon-152.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  <link rel="shortcut icon" href="icons/icon-96.png">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="about-page">
+
+  <!-- Minimal nav: just "← Back to Scheduler" -->
+  <nav id="about-nav">
+    <a href="index.html" class="back-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Scheduler
+    </a>
+  </nav>
+
+  <div class="about-wrap">
+
+    <!-- Hero -->
+    <div class="about-hero">
+      <div class="about-brain">🧠</div>
+      <h1 class="about-heading">Deep Work + Time Blocking</h1>
+      <p class="about-tagline">Focus deeply, work intentionally, achieve more</p>
+    </div>
+
+    <!-- Section 1: What is Deep Work -->
+    <div class="about-section">
+      <p class="section-label">What is Deep Work?</p>
+      <p class="section-body">
+        <strong>Deep Work</strong> is focused, distraction-free concentration on cognitively demanding tasks. It's the ability to quickly master complex information and produce high-quality results.
+      </p>
+      <p class="section-body">
+        In our distracted world, this skill is becoming rare—and incredibly valuable.
+      </p>
+      <p class="section-body">
+        Source: <a href="https://www.calnewport.com/books/deep-work/" target="_blank" rel="noopener">Cal Newport's "Deep Work"</a>
+      </p>
+    </div>
+
+    <!-- Section 2: Why Time Blocking Works -->
+    <div class="about-section">
+      <p class="section-label">Why Time Blocking Works</p>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-icon-wrap">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1a3a4a" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <p class="feature-title">Protects Focus Time</p>
+            <p class="feature-desc">Creates sacred blocks for deep work</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon-wrap">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1a3a4a" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <div>
+            <p class="feature-title">Reduces Decisions</p>
+            <p class="feature-desc">Know exactly what to work on, when</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon-wrap">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1a3a4a" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div>
+            <p class="feature-title">Builds Accountability</p>
+            <p class="feature-desc">Commit to specific work periods</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon-wrap">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1a3a4a" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div>
+            <p class="feature-title">Creates Rituals</p>
+            <p class="feature-desc">Train your brain to focus on cue</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: Quick Tips -->
+    <div class="about-section">
+      <p class="section-label">Quick Tips</p>
+      <ul class="tips-list">
+        <li>Start with 1-2 deep work blocks per day</li>
+        <li>Schedule deep work during your peak energy hours</li>
+        <li>Batch similar shallow tasks together</li>
+        <li>Treat time blocks like important meetings</li>
+        <li>Review your day and plan tomorrow's blocks</li>
+      </ul>
+    </div>
+
+    <!-- CTA -->
+    <div class="about-cta">
+      <p class="cta-heading">Ready to Get Started?</p>
+      <a href="index.html" class="btn-start">Start Time Blocking</a>
+    </div>
+
+  </div>
+
+  <script>
+    if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+
+    // Register service worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(function(){});
+    }
+
+    // Standalone detection
+    if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
+      document.body.classList.add('pwa-standalone');
+    }
+  </script>
+</body>
+</html>
